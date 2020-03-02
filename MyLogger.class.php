@@ -1,6 +1,13 @@
 <?php
 class MyLogger
 {
+    public $origin;
+
+    public function setOrigin($origin)
+    {
+        $this->origin = $origin;
+    }
+
     public function log($message, $level) 
     {
         switch($level){
@@ -41,10 +48,11 @@ class MyLogger
 
     private function _logWithTime($type, $message)
     {
-        echo "[".date("d,M,Y h:i:s")."] $type $message".PHP_EOL;
+        echo "[".date("d,M,Y h:i:s")."] $this->origin - $type $message".PHP_EOL;
     }
 }
 
 $logger = new MyLogger();
+$logger->setOrigin("origin test");
 $logger->log("log message", "INFO");
 $logger->warning("warning message");
